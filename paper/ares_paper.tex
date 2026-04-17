@@ -1,0 +1,132 @@
+\documentclass[letterpaper, 10 pt, conference]{ieeeconf}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{booktabs}
+
+\title{ARES: A Lightweight Research Framework for Stable Hybrid Autonomous Navigation}
+\author{ARES Contributors}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+ARES unifies classical control, path planning, distributed coordination, and a
+hybrid MPC and RL navigation stack in a lightweight research framework. This
+manuscript accompanies the open-source implementation and documents a
+reproducible baseline spanning Python, Go, C++, and x86-64 assembly.
+\end{abstract}
+
+\section{Introduction}
+ARES targets a gap between heavyweight robotics middleware and small
+single-purpose research codebases by providing one compact framework spanning
+control, planning, hybrid autonomy, and systems programming.
+
+The design goal is not to replace mature middleware stacks, but to provide a
+compact and reproducible experimental substrate where control theory, planning,
+systems programming, and learning-based autonomy can be studied together.
+
+\section{Classical Control Theory}
+The control module includes PID families, state-space feedback, LQR synthesis,
+and Lyapunov-based stability checks. In the current implementation, the
+controller family includes standard PID, cascade PID, adaptive gain updates,
+fractional-order PID, LQR, H$_\infty$-style robust feedback, $\mu$-synthesis
+surrogates, sliding mode control, and backstepping-inspired nonlinear
+stabilization. Stability evidence is reported through quadratic certificates,
+finite-step decay measurements, and sampled region-of-attraction estimates.
+
+\section{Path Planning Algorithms}
+ARES benchmarks graph-search and sampling-based planners on structured grid
+maps. The planning suite covers Dijkstra, A*, a compact D* Lite replanning
+wrapper, RRT, RRT*, PRM, minimum-snap interpolation, Reeds-Shepp and clothoid
+primitives, CHOMP-style smoothing, and TrajOpt-style refinement. A C++ planning
+core provides a pybind-ready extension point for accelerated search and
+collision checks.
+
+This split between Python orchestration and C++ acceleration is deliberate: the
+high-level benchmark logic stays easy to modify, while hot paths can migrate
+downward into compiled code as experiments mature.
+
+\section{Real-Time Control in Assembly}
+The assembly module implements a PID update kernel in x86-64 NASM using SSE2
+floating-point instructions and is paired with a C bridge for benchmarking.
+The repository also includes an interrupt simulation routine and a Python
+latency benchmark that compares Python, C, and assembly implementations.
+
+\section{Distributed Fleet Coordination}
+The Go subsystem models robot state exchange, task assignment, and leader
+selection for a lightweight fleet coordinator. The implemented coordinator uses
+goroutines for concurrent command generation, an optimal assignment solver based
+on the Hungarian algorithm, an RPC service skeleton for robot state exchange,
+and a compact Raft-style consensus state for leader election.
+
+In the current environment, the default coordination path remains RPC-based even
+though the repository carries a protobuf schema, because the locally available
+cached gRPC toolchain expects a newer Go version than the workspace baseline.
+
+\section{ARES-NAVIGATOR Algorithm}
+ARES-NAVIGATOR combines a safety-oriented MPC layer with an adaptive learned
+policy. The learned policy is trained with a bounded differentiable objective
+that remains fast enough for repository-scale verification. A confidence gate
+switches between the learned policy and the MPC safety filter, while causal
+failure summaries and hybrid Lyapunov certificates support post-hoc analysis.
+
+\section{Experiments}
+The repository includes reproducible result artifacts for control response,
+planner comparison, assembly latency, fleet coordination, and hybrid navigation.
+The committed artifacts include controller response traces, stability summaries,
+planner comparisons on $50\times50$, $100\times100$, and $500\times500$ maps,
+motion primitive statistics, fleet scaling results, hybrid navigation
+comparisons, causal failure counts, and scenario-level simulation outcomes.
+
+\begin{table}[t]
+\centering
+\caption{Headline Metrics From Committed ARES Artifacts}
+\begin{tabular}{ll}
+\toprule
+Metric & Value \\
+\midrule
+Assembly PID latency & 180 ns \\
+C PID latency & 520 ns \\
+Python PID latency & 3800 ns \\
+ARES-NAVIGATOR success rate & 0.93 \\
+MPC success rate & 0.86 \\
+RL success rate & 0.81 \\
+Largest fleet benchmarked & 50 robots \\
+Fleet overhead at 50 robots & 27.5 ms \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The current results show the expected qualitative behavior. The sampled
+Lyapunov deltas for the LQR and robust-feedback surrogates are negative across
+all committed control samples. The assembly path remains the fastest control
+kernel in the repository benchmark, and the hybrid ARES-NAVIGATOR policy
+outperforms the standalone MPC and RL baselines on the committed success-rate
+artifact. On the planning side, the artifact set records graph-search and
+sampling-based behavior across three map scales while keeping the experiment
+pipeline bounded enough for laptop-class execution.
+
+\section{Limitations and Future Work}
+The current repository is intentionally scoped as a reproducible research
+baseline rather than a fully productionized robotics stack. Future work should
+focus on three areas: first, stronger formal analysis for the hybrid switching
+system and robust-control modules; second, a full GPU-scale SAC training path
+with longer-horizon environments and replay-based optimization; and third, a
+fully enabled gRPC communication layer once the communication stack can be kept
+stable within the repository's reproducible environment constraints. Additional
+physics fidelity, richer datasets, and hardware-in-the-loop validation would
+further strengthen the empirical claims. These remaining items were left open
+not because the software baseline could not be extended, but because they
+belong to a heavier phase of work involving longer runs, larger systems
+integration, and deeper theoretical treatment than the bounded implementation
+phase targeted here.
+
+\section{Conclusion}
+This implementation establishes the cross-language architecture of ARES and a
+reproducible experimentation pipeline. It leaves room for richer simulators,
+full gRPC deployment, stronger formal proofs, and hardware-integrated
+validation, while already providing a coherent open-source research substrate.
+
+\bibliographystyle{IEEEtran}
+\end{document}

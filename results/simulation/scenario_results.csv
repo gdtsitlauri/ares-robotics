@@ -1,0 +1,5 @@
+scenario,algorithm,success_rate,path_ratio,planning_time_ms
+maze_navigation,ares_navigator,0.0,0.613,10.0
+dynamic_obstacles,ares_navigator,0.0,1.714,10.0
+multi_robot,fleet_mpc,1.0,1.067,10.0
+narrow_passage,ares_navigator,1.0,0.924,10.0

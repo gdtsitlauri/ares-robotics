@@ -1,0 +1,5 @@
+Quadratic Lyapunov candidate V(x)=x^T P x with P from the Riccati equation.
+LQR sampled region of attraction radius: 1.00.
+Luenberger observer estimate sample: [0.3, 0.42000000000000004].
+Kalman posterior covariance trace: 0.923476.
+Stability reports: [{'controller': 'lqr', 'region_of_attraction': 1.0, 'lyapunov_trace': 70.68189511865535}, {'controller': 'hinf_surrogate', 'region_of_attraction': 1.0, 'lyapunov_trace': 168.47375613504164}].

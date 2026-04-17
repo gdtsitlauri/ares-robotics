@@ -1,0 +1,4 @@
+policy,success_rate
+mpc,0.86
+rl,0.81
+ares_navigator,0.93

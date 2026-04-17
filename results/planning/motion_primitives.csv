@@ -1,0 +1,6 @@
+primitive,samples,path_length
+reeds_shepp,4,4.539
+clothoid,20,3.191
+minimum_snap,20,3.4
+chomp,4,3.038
+trajopt,4,3.0

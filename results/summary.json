@@ -1,0 +1,52 @@
+{
+  "assembly": {
+    "fastest_implementation": "assembly_pid",
+    "latency_ns": 180.0
+  },
+  "navigator": {
+    "best_success_policy": "ares_navigator",
+    "best_success_rate": 0.93,
+    "best_return_policy": "ares_navigator",
+    "best_return": -0.12,
+    "causal_failure_total": 4
+  },
+  "planning": {
+    "best_by_map_size": {
+      "100x100": {
+        "algorithm": "rrt",
+        "path_length": 140.007,
+        "computation_time_ms": 4.654
+      },
+      "500x500": {
+        "algorithm": "rrt",
+        "path_length": 0.0,
+        "computation_time_ms": 8.083
+      },
+      "50x50": {
+        "algorithm": "rrt_star",
+        "path_length": 69.934,
+        "computation_time_ms": 16.232
+      }
+    },
+    "best_motion_primitive": {
+      "primitive": "trajopt",
+      "path_length": 3.0
+    }
+  },
+  "control": {
+    "stable_samples": 6,
+    "unstable_samples": 0
+  },
+  "fleet": {
+    "largest_fleet_size": 50,
+    "task_completion_s": 15.9,
+    "communication_overhead_ms": 27.5
+  },
+  "simulation": {
+    "successful_scenarios": [
+      "multi_robot",
+      "narrow_passage"
+    ],
+    "scenario_count": 4
+  }
+}

@@ -1,0 +1,7 @@
+sample,controller,delta_v,stable
+0,lqr,-13.47618509838955,True
+1,lqr,-2.7713627273411845,True
+2,lqr,-1.5850663456917804,True
+0,hinf_surrogate,-27.52041574391781,True
+1,hinf_surrogate,-5.454780399659491,True
+2,hinf_surrogate,-3.0522689068185542,True

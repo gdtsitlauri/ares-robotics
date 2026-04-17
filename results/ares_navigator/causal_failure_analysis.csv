@@ -1,0 +1,5 @@
+cause,count
+control_error,1
+map_inaccuracy,1
+obstacle_proximity,1
+policy_uncertainty,1

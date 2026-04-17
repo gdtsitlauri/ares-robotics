@@ -1,0 +1,3 @@
+Hybrid Lyapunov candidate uses goal distance as the common storage function.
+For representative samples, the closed-loop step produces negative delta V: [{'mode': 'mpc', 'V': 1.0, 'dV': -0.07840000000000003, 'velocity': 0.2}, {'mode': 'mpc', 'V': 1.69, 'dV': -0.09440000000000004, 'velocity': 0.2}, {'mode': 'rl', 'V': 1.01, 'dV': -0.33490603825933174, 'velocity': 0.9224105477333069}].
+Evaluation rows: [{'scenario_id': 0, 'mode': 'rl', 'distance_after_step': 0.8155018925666809, 'confidence': 0.5}, {'scenario_id': 1, 'mode': 'mpc', 'distance_after_step': 1.019803902718557, 'confidence': 0.32566767182932443}, {'scenario_id': 2, 'mode': 'mpc', 'distance_after_step': 1.0248902380255165, 'confidence': 0.3193105638782081}].

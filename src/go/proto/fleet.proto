@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+package ares.fleet;
+option go_package = "ares/go/proto;proto";
+
+message Vec2 {
+  double x = 1;
+  double y = 2;
+}
+
+message RobotState {
+  string id = 1;
+  Vec2 position = 2;
+  Vec2 velocity = 3;
+  double battery = 4;
+  string task = 5;
+  bool alive = 6;
+}
+
+message FleetCommand {
+  string robot_id = 1;
+  string action = 2;
+  Vec2 target = 3;
+}
+
+service FleetCoordinator {
+  rpc RegisterState (RobotState) returns (Ack);
+  rpc SendCommand (FleetCommand) returns (Ack);
+}
+
+message Ack {
+  bool accepted = 1;
+}
