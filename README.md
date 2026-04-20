@@ -1,5 +1,10 @@
 # ARES
 
+**Author:** George David Tsitlauri  
+**Affiliation:** Dept. of Informatics & Telecommunications, University of Thessaly, Greece  
+**Contact:** gdtsitlauri@gmail.com  
+**Year:** 2026
+
 ARES is a lightweight autonomous robotics research framework that combines
 classical control, sampling-based planning, hybrid MPC and RL navigation,
 real-time assembly kernels, and a Go fleet coordination layer.
@@ -102,3 +107,15 @@ the locally cached `grpc/protobuf` toolchain available in this environment
 requires a newer Go version than the configured `go1.22.2` workspace. The repo
 therefore keeps the `.proto` schema and safe RPC-based coordination path active
 by default.
+
+## Citation
+
+```bibtex
+@misc{tsitlauri2026ares,
+  author = {George David Tsitlauri},
+  title  = {ARES: A Lightweight Research Framework for Stable Hybrid Autonomous Navigation},
+  year   = {2026},
+  institution = {University of Thessaly},
+  email  = {gdtsitlauri@gmail.com}
+}
+```
