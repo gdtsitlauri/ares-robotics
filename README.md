@@ -1,9 +1,5 @@
 # ARES
 
-**Author:** George David Tsitlauri  
-**Affiliation:** Dept. of Informatics & Telecommunications, University of Thessaly, Greece  
-**Contact:** gdtsitlauri@gmail.com  
-**Year:** 2026
 
 ARES is a lightweight autonomous robotics research framework that combines
 classical control, sampling-based planning, hybrid MPC and RL navigation,
@@ -11,6 +7,49 @@ real-time assembly kernels, and a Go fleet coordination layer.
 
 The current repository is an implementation-focused research baseline with
 working cross-language modules, generated result artifacts, and automated tests.
+
+
+## Project Metadata
+
+| Field | Value |
+| --- | --- |
+| Author | George David Tsitlauri |
+| Affiliation | Dept. of Informatics & Telecommunications, University of Thessaly, Greece |
+| Contact | gdtsitlauri@gmail.com |
+| Year | 2026 |
+
+## Primary Research Thesis
+
+ARES is strongest as a bounded cross-language robotics baseline that brings
+control, planning, hybrid navigation, and lightweight fleet coordination into a
+single reproducible repository. The clearest empirical evidence in the current
+ release is not a claim of full-stack production autonomy, but a compact set of
+ repeatable artifacts showing that:
+
+- the assembly control path is materially faster than the C and Python
+  baselines,
+- the hybrid ARES-NAVIGATOR stack improves over standalone MPC and RL
+  baselines on the committed navigation scenarios,
+- the fleet-coordination path scales to the repository's current 50-robot
+  benchmark envelope.
+
+## Evidence Snapshot
+
+The committed artifacts in `results/summary.json` currently show:
+
+- Assembly PID latency: `180 ns`
+- C PID latency: `520 ns`
+- Python PID latency: `3800 ns`
+- ARES-NAVIGATOR success rate: `0.93`
+- MPC success rate: `0.86`
+- RL success rate: `0.81`
+- Largest benchmarked fleet size: `50`
+- Fleet overhead at 50 robots: `27.5 ms`
+
+The planning suite also records multi-scale behavior across `50x50`, `100x100`,
+and `500x500` maps. These artifacts are useful for comparing planner behavior
+inside the repository, but they should be read as bounded benchmark evidence
+rather than as a universal claim that one planner dominates every map regime.
 
 **Implemented**
 - `src/python/ares/control.py`: PID, cascade PID, fractional PID, LQR, observer
@@ -84,6 +123,14 @@ working cross-language modules, generated result artifacts, and automated tests.
 - The learned navigation policy is a repository-scale baseline designed to stay
   compatible with rapid local verification.
 
+## Evidence Hierarchy
+
+- Primary evidence: assembly latency, hybrid navigation success, and fleet
+  scaling artifacts
+- Secondary evidence: control certificates and multi-scale planning comparisons
+- Supporting evidence: cross-language architecture, protobuf/RPC integration,
+  and deterministic simulation outputs
+
 **Heavy Work Left Open**
 - Full Go gRPC deployment is not part of the default path yet because the
   available environment and dependency baseline do not line up cleanly enough
@@ -108,14 +155,4 @@ requires a newer Go version than the configured `go1.22.2` workspace. The repo
 therefore keeps the `.proto` schema and safe RPC-based coordination path active
 by default.
 
-## Citation
 
-```bibtex
-@misc{tsitlauri2026ares,
-  author = {George David Tsitlauri},
-  title  = {ARES: A Lightweight Research Framework for Stable Hybrid Autonomous Navigation},
-  year   = {2026},
-  institution = {University of Thessaly},
-  email  = {gdtsitlauri@gmail.com}
-}
-```

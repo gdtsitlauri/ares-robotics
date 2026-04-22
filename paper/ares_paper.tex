@@ -18,7 +18,11 @@ gdtsitlauri@gmail.com}
 ARES unifies classical control, path planning, distributed coordination, and a
 hybrid MPC and RL navigation stack in a lightweight research framework. This
 manuscript accompanies the open-source implementation and documents a
-reproducible baseline spanning Python, Go, C++, and x86-64 assembly.
+reproducible baseline spanning Python, Go, C++, and x86-64 assembly. The
+strongest empirical evidence in the current release comes from bounded
+cross-language robotics artifacts: sub-microsecond control-kernel benchmarks, a
+hybrid navigator that improves on standalone MPC and RL baselines in the
+committed scenarios, and fleet-coordination measurements up to 50 robots.
 \end{abstract}
 
 \section{Introduction}
@@ -111,6 +115,17 @@ artifact. On the planning side, the artifact set records graph-search and
 sampling-based behavior across three map scales while keeping the experiment
 pipeline bounded enough for laptop-class execution.
 
+\subsection{Interpretation Boundary}
+The current ARES release should be interpreted as a reproducible robotics
+research baseline rather than as a production-ready autonomy stack. Its
+strongest claims are local and artifact-driven: the assembly kernel materially
+reduces controller latency inside the repository benchmark; the hybrid
+navigation layer improves over the current standalone MPC and RL baselines on
+the committed scenarios; and the fleet layer supports a bounded 50-robot
+evaluation envelope. The planning results remain useful for internal algorithm
+comparison, but they are not intended to establish a universal ranking of all
+planners across all map regimes.
+
 \section{Limitations and Future Work}
 The current repository is intentionally scoped as a reproducible research
 baseline rather than a fully productionized robotics stack. Future work should
@@ -130,7 +145,9 @@ phase targeted here.
 This implementation establishes the cross-language architecture of ARES and a
 reproducible experimentation pipeline. It leaves room for richer simulators,
 full gRPC deployment, stronger formal proofs, and hardware-integrated
-validation, while already providing a coherent open-source research substrate.
+validation, while already providing a coherent open-source research substrate
+with concrete evidence in control latency, hybrid navigation, and bounded fleet
+coordination.
 
 \bibliographystyle{IEEEtran}
 \end{document}
